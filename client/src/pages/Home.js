@@ -12,7 +12,6 @@ const Home = () => {
   const handleAddToCart = async (product_id) => {
     const email = localStorage.getItem('userEmail');
 
-
     if (!email) {
       alert('You need to log in first!');
       return;
@@ -99,16 +98,22 @@ const Home = () => {
               <h3>Customer Feedback:</h3>
               {product.feedbacks.length > 0 ? (
                 <ul>
-                  {product.feedbacks.map((feedback, index) => (
-                    <li key={feedback.feedback_id || index}>
-                      <div>
-                      <strong className="userName">User {feedback.userId}:</strong> 
-                      <span className="userComment">{feedback.comment}</span>
+                  {product.feedbacks.map((feedback, index) => {
+                    // Format the date here
+                    const formattedDate = new Date(feedback.created_at).toLocaleDateString();
 
-                      </div>
-                      <div className="rating">{renderRatingStars(feedback.rating)}</div>
-                    </li>
-                  ))}
+                    return (
+                      <li key={feedback.feedback_id || index}>
+                        <div>
+                          <hr className="custom-hr" />
+                          <strong className="userName">User {feedback.userId}:</strong>
+                          <span className="userComment">{feedback.comment}</span>
+                        </div>
+                        <div className="rating">{renderRatingStars(feedback.rating)}</div>
+                        <div className="date">{formattedDate}</div>
+                      </li>
+                    );
+                  })}
                 </ul>
               ) : (
                 <p>No feedback available.</p>

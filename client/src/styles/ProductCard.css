@@ -51,10 +51,21 @@
   align-items: center;
   flex-grow: 1;
   min-height: 260px;
+  max-height: 260px; /* Restricts height to 260px */
+  overflow: hidden; /* Hides overflowing content */
+  text-overflow: ellipsis; /* Adds '...' for overflowing text */
+  word-wrap: break-word; /* Ensures long words break appropriately */
 }
 
+.product-info .product-title,
+.product-info .product-description {
+  overflow: hidden; /* Hides text that overflows */
+  text-overflow: ellipsis; /* Adds '...' for overflowing text */
+}
+
+
 .product-name {
-  font-size: 1.1em;
+  font-size: 1em;
   color: #333;
   margin-bottom: 4px;
   line-height: 24px;

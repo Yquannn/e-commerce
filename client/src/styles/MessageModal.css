@@ -108,6 +108,7 @@
   cursor: pointer;
   border-radius: 5px;
   margin-left: 10px;
+  max-width: 60px;
 }
 
 .input-area button:hover {

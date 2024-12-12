@@ -37,7 +37,7 @@
 .product-list {
   display: grid;
   grid-template-columns: repeat(6, 1fr); /* Set to 6 equal columns */
-  gap: 15px; /* Reduced gap between products */
+  gap: 5px; 
   justify-items: center; /* Center products within the grid */
 }
 
@@ -48,6 +48,7 @@
   overflow: hidden;
   transition: transform 0.2s ease;
   max-width: 200px; /* Adjusted card size to fit 6 columns */
+
 }
 
 .product-card-container:hover {
@@ -73,21 +74,57 @@
 }
 
 .product-feedback li {
-  margin-bottom: 5px; /* Smaller spacing between feedback items */
+  margin-bottom: 5px; 
 }
 
 .star {
-  font-size: 14px; /* Smaller star size */
-  color: #ffd700; /* Yellow stars for ratings */
+  font-size: 22px;
+  color: #ffd700; 
 }
 
 .loading,
 .error {
   text-align: center;
-  font-size: 1em; /* Smaller font size */
+  font-size: 1em; 
   color: #333;
 }
 
 .error {
   color: red;
 }
+
+.date {
+  font-size: 12px;
+  color: #95a5a6; 
+  text-align: left; 
+  margin-top: 5px;
+  /* font-style: italic;  */
+  white-space: nowrap; 
+}
+
+
+.date:hover {
+  color: #2c3e50;
+  cursor: pointer; 
+}
+
+.custom-hr {
+  border: none; 
+  height: 1px;
+  background-color: #ecf0f1; 
+  /* margin: 20px 0;  */
+  width: 100%;
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  */
+}
+
+
+.custom-hr.dotted {
+  border-top: 1px dotted #ecf0f1;
+}
+
+
+.custom-hr.gradient {
+  height: 3px;
+  background: linear-gradient(to right, #3498db, #2c3e50);
+}
+

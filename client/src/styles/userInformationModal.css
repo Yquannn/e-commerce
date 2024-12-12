@@ -1,0 +1,91 @@
+/* Modal.css */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%; /* Ensure full-width coverage */
+  height: 100%; /* Ensure full-height coverage */
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it stays on top of other elements */
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px; /* Slightly larger border-radius for a modern look */
+  text-align: center;
+  width: 90%; /* Use a percentage for better responsiveness */
+  max-width: 400px; /* Set a maximum width */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add subtle shadow for depth */
+}
+
+.modal-content input {
+  padding: 12px; /* Slightly larger padding for better accessibility */
+  margin: 12px 0;
+  width: 100%;
+  border: 1px solid #ccc; /* Add border for clarity */
+  border-radius: 4px; /* Match rounded corners */
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px; /* Add spacing between buttons */
+}
+
+.modal-buttons button {
+  flex: 1; /* Make buttons equally sized */
+  padding: 12px;
+  margin-top: 10px;
+  cursor: pointer;
+  border: none; /* Remove default button border */
+  border-radius: 4px;
+  background: #007BFF; /* Use a primary color */
+  color: white;
+  font-size: 16px;
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.modal-buttons button:hover {
+  background: #0056b3; /* Darker shade on hover */
+}
+
+.modal-buttons button:disabled {
+  background: #ccc; /* Indicate disabled state */
+  cursor: not-allowed;
+}
+/* Modal Submit Button */
+.modal-submit-button {
+  padding: 10px 15px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.modal-submit-button:hover {
+  background-color: #0056b3;
+}
+
+/* Fix blinking issue */
+.modal {
+  pointer-events: auto; /* Ensures interaction without flickering */
+  animation: fadeIn 0.3s ease; /* Smooth entry animation */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+

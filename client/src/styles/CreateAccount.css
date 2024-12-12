@@ -1,0 +1,94 @@
+/* Create Account Styles */
+.create-account-container {
+  background-color: #f4f4f4;
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.create-account-container h2 {
+  font-size: 28px;
+  color: #333;
+  margin-top: 50px;
+
+}
+
+.create-account-form {
+  background-color: #fff;
+  padding: 20px;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #333;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #ff9900;
+  outline: none;
+}
+
+.create-account-button {
+  background-color: #ff9900;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.create-account-button:hover {
+  background-color: #e68a00;
+}
+
+.create-account-button:active {
+  background-color: #d77a00;
+}
+
+@media (max-width: 768px) {
+  .create-account-container {
+    padding: 10px;
+  }
+
+  .create-account-form {
+    padding: 15px;
+    max-width: 90%;
+  }
+
+  .form-group input,
+  .form-group select {
+    font-size: 14px;
+  }
+
+  .create-account-button {
+    font-size: 14px;
+    padding: 10px 15px;
+  }
+}

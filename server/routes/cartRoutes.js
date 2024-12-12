@@ -10,5 +10,5 @@ const cartController = require('../controllers/cartController.js');
 router.get('/cart-items/:email', cartController.getUserCartItems);
 router.post('/cart-items', cartController.addToCart);
 
-router.delete('/cart-items/:productId', cartController.removeFromCart);
+router.delete('/cart-items/:cartId/:productId', cartController.removeFromCart);
 module.exports = router;

@@ -4,13 +4,14 @@ import Feedback from './Feedback';
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
-  const [userId, setUserId] = useState(null); 
+  const [userId, setUserId] = useState(null);
+  const [cartId, setCartId] = useState(null); // Store cartId
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false);
 
   const email = localStorage.getItem('userEmail');
-  
+
   useEffect(() => {
     const fetchCartItems = async () => {
       if (!email) {
@@ -25,13 +26,12 @@ const CartPage = () => {
           throw new Error('Failed to fetch cart items.');
         }
         const data = await response.json();
-        if (!data.cartItems || !Array.isArray(data.cartItems)) {
-          throw new Error('Invalid response format: Expected an array of cart items.');
-        }
+        console.log('Fetched cart items:', data); 
         setCartItems(data.cartItems);
-        setUserId(data.userId); 
-        localStorage.setItem('userId', data.userId); // Set userId in localStorage
-
+        setUserId(data.userId);
+        setCartId(data.cartId); // Set cartId
+        console.log(data.cartId);
+        localStorage.setItem('userId', data.userId); 
       } catch (error) {
         console.error('Error fetching cart items:', error.message);
         setError(error.message);
@@ -43,33 +43,40 @@ const CartPage = () => {
     fetchCartItems();
   }, [email]);
 
+  // Function to remove item from cart and update UI
   const removeFromCart = async (cartId, productId) => {
     try {
-      const response = await fetch(`http://localhost:3001/api/cart-items/${productId}`, {
+      const response = await fetch(`http://localhost:3001/api/cart-items/${cartId}/${productId}`, {
         method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ cartId, productId }), // Ensure body is a JSON string
       });
-  
+
       if (!response.ok) {
-        throw new Error('Failed to remove item from cart.');
+        throw new Error('Failed to remove product from cart');
       }
-  
-      setCartItems((prevItems) => prevItems.filter((item) => item.product_id !== productId));
+
+      const data = await response.json();
+      console.log('Product removed from cart:', data);
+
+      // Optimistically update the UI by removing the item from the state
+      setCartItems(prevItems => prevItems.filter(item => item.product_id !== productId));
     } catch (error) {
-      console.error('Error removing item from cart:', error.message);
-      setError(error.message);
+      console.error('Error:', error.message);
     }
   };
-  
+
+  // Handle remove action triggered by the user
   const handleRemoveFromCart = (productId) => {
-    if (!userId || !productId) {
-      console.error('Invalid cart ID or product ID.');
+    if (!cartId) {
+      console.error('Cart ID is not available.');
       return;
     }
-    removeFromCart(userId, productId);
+
+    if (!productId) {
+      console.error('Invalid product ID.');
+      return;
+    }
+
+    removeFromCart(cartId, productId);
   };
 
   const totalPrice = cartItems.reduce((total, item) => total + (item.productPrice * item.quantity), 0);
@@ -77,14 +84,6 @@ const CartPage = () => {
   const handleProceedToCheckout = () => {
     setIsCheckoutModalOpen(true);
   };
-
-  if (loading) {
-    return <div>Loading cart...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
 
   return (
     <div className="cart-page">
@@ -96,7 +95,6 @@ const CartPage = () => {
       ) : (
         <>
           <h2>My Cart</h2>
-          {/* {userId && <div className="user-id">User ID: {userId}</div>} */}
           <div className="cart-items">
             {cartItems.map((item) => (
               <div key={item.product_id} className="cart-item">
@@ -110,7 +108,10 @@ const CartPage = () => {
                   <p>Quantity: {item.quantity}</p>
                   <p>₱{item.productPrice}</p>
                 </div>
-                <button onClick={() => handleRemoveFromCart(userId, item.product_id)} className="remove-button">
+                <button
+                  onClick={() => handleRemoveFromCart(item.product_id)}
+                  className="remove-button"
+                >
                   Remove
                 </button>
               </div>

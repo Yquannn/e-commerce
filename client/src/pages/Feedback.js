@@ -7,7 +7,7 @@ const Feedback = ({ cartItems, onClose }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const userId = localStorage.getItem('userId');
+  const userId = localStorage.getItem('userId'); // Assuming userId is stored in localStorage
 
   const handleRatingChange = (productId, value) => {
     setRatings((prev) => ({
@@ -24,46 +24,46 @@ const Feedback = ({ cartItems, onClose }) => {
   };
 
   const handleCheckoutSubmit = async () => {
+    // Check if ratings for all cart items are provided
     for (let item of cartItems) {
       if (!ratings[item.product_id]) {
         setError(`Rating for ${item.productName} is required.`);
         return;
       }
     }
-  
+
+    // Ensure userId is available
     if (!userId) {
-      setError("User ID is required.");
+      setError("User ID is required. Please log in.");
       return;
     }
-  
+
     setLoading(true);
     const feedbackData = cartItems.map((item) => ({
       productId: item.product_id,
       userId: userId,
       comment: comments[item.product_id] || '',
-      rating: ratings[item.product_id]
+      rating: ratings[item.product_id],
     }));
-  
+
     console.log('Submitting feedback data:', feedbackData);
-    console.log(userId);
-    console.log(feedbackData);
-  
+
     try {
       const response = await fetch('http://localhost:3001/api/feedback', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ feedback: feedbackData }), // Ensure body is a JSON string
+        body: JSON.stringify({ feedback: feedbackData }),
       });
-  
+
       if (!response.ok) {
         throw new Error('Failed to submit feedback');
       }
-  
+
       const data = await response.json();
       console.log('Feedback submitted successfully:', data);
-      onClose();
+      onClose(); // Close modal after submitting feedback
     } catch (err) {
       setError('Error submitting feedback: ' + err.message);
       console.error('Error submitting feedback:', err);
@@ -71,14 +71,11 @@ const Feedback = ({ cartItems, onClose }) => {
       setLoading(false);
     }
   };
-  
-  
-  
-  
+
   return (
     <div className="checkout-modal">
       <h2>Rate and Comment on Products</h2>
-      {userId && <div className="user-id">User ID: {userId}</div>}
+      {/* {userId && <div className="user-id">User ID: {userId}</div>} */}
       {error && <div className="error-message">{error}</div>}
       {cartItems.map((item) => (
         <div key={item.product_id} className="checkout-item">

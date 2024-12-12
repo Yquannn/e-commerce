@@ -1,5 +1,4 @@
-// MessageModal.js (Frontend)
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CSSTransition } from "react-transition-group";
 import "../styles/MessageModal.css";
 import axios from "axios"; // Axios to handle HTTP requests
@@ -8,6 +7,15 @@ const MessageModal = ({ isOpen, toggleModal }) => {
   const [userMessage, setUserMessage] = useState(""); // State to store the user's message
   const [messages, setMessages] = useState([]); // State to store chat messages
   const [loading, setLoading] = useState(false); // State to track if the bot is replying
+
+  // Add initial bot message when the modal is opened
+  useEffect(() => {
+    if (isOpen) {
+      setMessages([
+        { sender: "bot", text: "Hello! I'm Shopmee bot. Ask me anything about our products!" },
+      ]);
+    }
+  }, [isOpen]);
 
   const sendMessage = async () => {
     if (!userMessage.trim()) return; // Don't send empty messages
@@ -48,19 +56,19 @@ const MessageModal = ({ isOpen, toggleModal }) => {
       <div className="modal-overlay">
         <div className="modal-container">
           <div className="modal-header">
-            <h3>Messages</h3>
+            <h3>Shopmee Chatbot</h3>
             <button onClick={toggleModal} className="close-button">
               ✖
             </button>
           </div>
           <div className="modal-content">
             <div className="chat-window">
-              {/* Render messages */}
               {messages.length === 0 ? (
-                <p>No messages yet!</p>
+                <p>Ask anything about shopme products!</p>
               ) : (
                 messages.map((msg, index) => (
                   <div key={index} className={`message ${msg.sender}`}>
+                    <span className="sender-label">{msg.sender === "bot" ? "Shopmee bot" : "You"}</span>
                     <p>{msg.text}</p>
                   </div>
                 ))

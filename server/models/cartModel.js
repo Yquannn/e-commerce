@@ -71,24 +71,35 @@ exports.removeProductFromCart = async (cartId, productId) => {
     `;
     const [result] = await pool.query(query, [cartId, productId]);
 
+    // Check if the product was successfully removed
+    if (result.affectedRows === 0) {
+      return { error: 'Product not found in cart' };
+    }
+
     return result;
   } catch (error) {
     console.error('Error removing product from cart:', error.message);
-    throw error;
+    throw new Error('Failed to remove product from cart');
   }
 };
 
 
+
 exports.getCartItems = async (cartId) => {
   try {
-    // Assuming cart_items table links cart to products
+    // Assuming cart_items table links cart to products, and cart_id is linked to the cart
     const query = `
-      SELECT ci.product_id, ci.quantity, p.name AS productName, p.price AS productPrice
+      SELECT ci.cart_id, ci.product_id, ci.quantity, p.name AS productName, p.price AS productPrice
       FROM cart_items ci
       JOIN products p ON ci.product_id = p.product_id
       WHERE ci.cart_id = ?
     `;
     const [cartItems] = await pool.query(query, [cartId]);
+
+    if (cartItems.length === 0) {
+      throw new Error('No items found in the cart');
+    }
+
     return cartItems;
   } catch (error) {
     console.error('Error fetching cart items:', error.message);
@@ -98,9 +109,6 @@ exports.getCartItems = async (cartId) => {
 
 
 
-
-
-// Function to fetch cart by email
 exports.getCartByEmail = async (email) => {
   try {
 

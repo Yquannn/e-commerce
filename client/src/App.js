@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom"; // Don't wrap in Router here
 import RootLayout from "./layouts/RootLayout.js";
 import Home from "./pages/Home.js";
 import CartPage from "./pages/Cart.js";
@@ -16,27 +16,25 @@ const App = () => {
   };
 
   const handleLogOut = () => {
-    localStorage.clear(); 
+    localStorage.clear(); // Clear local storage
     alert("You have been logged out.");
+    window.location.href = "/"; // Redirect to the login page
   };
 
   return (
     <>
-    <RootLayout onMessageClick={toggleMessageModal} onLogOut={handleLogOut} />
+      <RootLayout onMessageClick={toggleMessageModal} onLogOut={handleLogOut} />
       <Routes>
         <Route index element={<LogInUser />} />
-          <Route path="shop" element={<Home />} />
-          <Route path="cart" element={<CartPage />} />
-          <Route path="addProduct" element={<AddProduct />} />
-          <Route path="createAccount" element={<CreateAccount />} />
-
+        <Route path="shop" element={<Home />} />
+        <Route path="cart" element={<CartPage />} />
+        <Route path="addProduct" element={<AddProduct />} />
+        <Route path="createAccount" element={<CreateAccount />} />
       </Routes>
       {isMessageModalOpen && (
         <MessageModal isOpen={isMessageModalOpen} toggleModal={toggleMessageModal} />
       )}
     </>
-      
-
   );
 };
 

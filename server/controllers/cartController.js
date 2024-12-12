@@ -3,8 +3,10 @@ const accountModel = require('../models/accountModel.js');
 const db = require('../config/dbConfig.js');
 
 
+// cartController.js
+
 exports.removeFromCart = async (req, res) => {
-  const { cartId, productId } = req.body;  // Get cartId and productId from the request body
+  const { cartId, productId } = req.params;  // Get cartId and productId from URL parameters
 
   if (!cartId) {
     return res.status(400).json({ error: 'Cart ID is required' });
@@ -15,19 +17,25 @@ exports.removeFromCart = async (req, res) => {
   }
 
   try {
-    // Remove the product from the cart
     const removeProductResult = await cartModel.removeProductFromCart(cartId, productId);
 
-    if (removeProductResult.affectedRows === 0) {
-      return res.status(404).json({ error: 'Product not found in the cart' });
+    if (removeProductResult.error) {
+      return res.status(404).json({ error: removeProductResult.error });
     }
 
-    res.status(200).json({ message: 'Product removed from cart', result: removeProductResult });
+    res.status(200).json({
+      message: 'Product removed from cart',
+      result: removeProductResult,
+    });
   } catch (error) {
     console.error('Error removing product from cart:', error.message);
-    res.status(500).json({ error: 'Failed to remove product from cart', details: error.message });
+    res.status(500).json({
+      error: 'Failed to remove product from cart',
+      details: error.message,
+    });
   }
 };
+
 
 
 
@@ -88,33 +96,38 @@ exports.addToCart = async (req, res) => {
 
 exports.getUserCartItems = async (req, res) => {
   const email = req.params.email;
+
+  // Validate the email
   if (!email) {
     return res.status(400).json({ error: 'Email is missing or invalid' });
   }
 
   try {
     // Fetch cart by email
-    const cart = await cartModel.getCartByEmail(email);  
+    const cart = await cartModel.getCartByEmail(email);
     console.log('Cart:', cart);
 
     if (cart.length === 0) {
       return res.status(404).json({ error: 'No cart found for this user' });
     }
-    
-    const cartId = cart[0].cart_id;  
+
+    const cartId = cart[0].cart_id;
     const userId = cart[0].userId;
 
     if (!cartId) {
       throw new Error('Cart ID is missing or invalid.');
     }
 
-    // Fetch cart items
-    console.log('Cart ID:', cartId);
+    // Fetch cart items by cartId
+    console.log('Fetching items for Cart ID:', cartId);
     const cartItems = await cartModel.getCartItems(cartId);
-    res.status(200).json({ userId, cartItems }); // Include userId in the response
+
+    // Include cartId and userId in the response
+    res.status(200).json({ cartId, userId, cartItems });
   } catch (error) {
     console.error('Error fetching cart items:', error.message);
     res.status(500).json({ error: 'Failed to fetch cart items', details: error.message });
   }
 };
+
 

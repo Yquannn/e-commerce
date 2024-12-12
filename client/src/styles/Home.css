@@ -1,95 +1,93 @@
+/* Home.css */
 .home {
-  padding: 20px;
-  text-align: center;
-  background-color: #f9f9f9;
-  margin-top: 24px;
+  background-color: #ffffff;
+  padding: 10px; /* Reduced padding */
+  font-family: 'Arial', sans-serif;
+  max-width: 1300px; /* Increased maximum width to accommodate more columns */
+  margin: 0 auto; /* Center the container horizontally */
 }
 
-h1 {
-  font-size: 32px;
+.welcome-message {
   color: #333;
-  margin-bottom: 20px;
+  text-align: center;
+  font-size: 15px;
+  margin-top: 28px;
 }
+
+.products-heading {
+  color: #333;
+  font-size: 1.5em; /* Smaller font size */
+  text-align: center;
+  margin-bottom: 15px; /* Reduced margin */
+}
+
+.userName {
+  font-weight: bold;
+  color: #333;
+  margin-right: 5px;
+  font-size: 12px;
+}
+
+.userComment {
+  color: #666;
+  font-size: 0.9em; /* Smaller font for the comment */
+}
+
 
 .product-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* Set to 6 equal columns */
+  gap: 15px; /* Reduced gap between products */
+  justify-items: center; /* Center products within the grid */
 }
 
-.product-card {
-  flex: 1 1 calc(25% - 20px); /* Flexible, responsive cards */
-  max-width: 300px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  overflow: hidden;
+.product-card-container {
   background-color: white;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
+  border-radius: 6px; /* Slightly smaller rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Softer, smaller shadow */
+  overflow: hidden;
+  transition: transform 0.2s ease;
+  max-width: 200px; /* Adjusted card size to fit 6 columns */
 }
 
-.product-card img {
-  width: 100%;
-  height: auto;
-}
-
-.product-card h3 {
-  margin: 10px;
-  font-size: 20px;
-  color: #333;
-}
-
-.product-card p {
-  margin: 10px;
-  font-size: 14px;
-  color: #666;
+.product-card-container:hover {
+  transform: translateY(-3px); /* Subtle hover effect */
 }
 
 .product-feedback {
-  margin-top: 20px;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #f9f9f9;
+  background-color: #fafafa;
+  padding: 8px; 
+  border-top: 1px solid #eee;
 }
 
 .product-feedback h3 {
-  margin-bottom: 10px;
-  font-size: 18px;
   color: #333;
+  font-size: 12px; /* Smaller font size */
+  margin-bottom: 8px; /* Reduced margin */
 }
 
 .product-feedback ul {
   list-style-type: none;
   padding: 0;
+  margin: 0;
 }
 
 .product-feedback li {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  padding: 5px 0;
-  border-bottom: 1px solid #ddd;
+  margin-bottom: 5px; /* Smaller spacing between feedback items */
 }
 
-.product-feedback li:last-child {
-  border-bottom: none;
+.star {
+  font-size: 14px; /* Smaller star size */
+  color: #ffd700; /* Yellow stars for ratings */
 }
 
-.product-feedback .rating {
-  display: flex;
-  align-items: center;
+.loading,
+.error {
+  text-align: center;
+  font-size: 1em; /* Smaller font size */
+  color: #333;
 }
 
-.product-feedback .rating .star {
-  color: #ffd700; /* Gold color for stars */
-  margin-right: 2px;
+.error {
+  color: red;
 }
-
-.product-feedback p {
-  font-style: italic;
-  color: #888;
-}
-

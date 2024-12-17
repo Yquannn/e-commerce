@@ -10,42 +10,27 @@ const Home = () => {
 
   const handleAddToCart = async (productId) => {
     const email = localStorage.getItem('userEmail');
-    
     if (!email) {
       alert('You are using a guest account. Please log in.');
       return;
     }
 
-    console.log('Adding product to cart:', { email, productId });
-
     try {
       const response = await fetch('http://localhost:3001/api/cart-items', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,         // Send email instead of userId
-          product_id: productId, // Send product_id to match the backend
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, product_id: productId }),
       });
 
       if (response.ok) {
-        const data = await response.json();
-        console.log('Product added to cart:', data);
         alert('Product added to cart!');
       } else {
-        const errorData = await response.json();
-        alert(errorData.error || 'Failed to add product to cart');
+        alert('Failed to add product to cart');
       }
     } catch (err) {
-      console.error('Error adding product to cart:', err);
-      // alert('Error adding product to cart');
       alert('Product added to cart!');
-
     }
   };
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,7 +38,6 @@ const Home = () => {
         const productsResponse = await fetch('http://localhost:3001/api/products');
         if (!productsResponse.ok) throw new Error('Failed to fetch products');
         const productsData = await productsResponse.json();
-
         const feedbackResponse = await fetch('http://localhost:3001/api/feedback/ratings/');
         if (!feedbackResponse.ok) throw new Error('Failed to fetch feedback');
         const feedbackData = await feedbackResponse.json();
@@ -96,11 +80,28 @@ const Home = () => {
 
   return (
     <div className="home">
+      {/* Landing Page Section */}
+      <section className="landing-page">
+        <div className="banner">
+          <h1>Welcome to Shopmee Online Store!</h1>
+          <p>Find the best products at unbeatable prices.</p>
+        </div>
+        <div className='cta-container'>
+          <button className="cta-button" onClick={() => window.scrollTo(0, 300)}>
+            Shop Now
+          </button>
+        </div>
+      </section>
+
+      {/* Welcome Message */}
       <h2 className="welcome-message">Welcome, {username}!</h2>
+
+      {/* Product List */}
       <div className="product-list">
         {products.map((product) => (
           <div key={product.product_id} className="product-card-container">
             <ProductCard product={product} onAddToCart={handleAddToCart} />
+
             <div className="product-feedback">
               <h3>Customer Feedback:</h3>
               {product.feedbacks.length > 0 ? (

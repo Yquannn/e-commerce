@@ -1,9 +1,9 @@
-/* Home.css */
+/* General Home Styling */
 .home {
   background-color: #ffffff;
-  padding: 10px; /* Reduced padding */
+  padding: 10px;
   font-family: 'Arial', sans-serif;
-  max-width: 1200px; /* Increased maximum width to accommodate more columns */
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -14,45 +14,95 @@
   margin-top: 50px;
 }
 
-.products-heading {
-  color: #333;
-  font-size: 1.5em; /* Smaller font size */
+/* Landing Page Banner */
+.landing-page {
+  background: linear-gradient(to right, #d73a13, #ec8c43);
+  color: white;
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Space between content and button */
+  align-items: center;
   text-align: center;
-  margin-bottom: 15px; /* Reduced margin */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px 0;
 }
 
-.userName {
-  font-weight: bold;
-  color: #333;
-  margin-right: 5px;
-  font-size: 12px;
+.landing-page .banner {
+  flex-grow: 1; /* Centers content vertically */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.userComment {
-  color: #666;
-  font-size: 0.9em; /* Smaller font for the comment */
+.landing-page .banner h1 {
+  font-size: 4rem;
+  margin: 0;
 }
 
+.landing-page .banner p {
+  font-size: 1.2rem;
+  margin: 10px 0;
+}
+
+.cta-container {
+  width: 100%;
+  display: flex;
+  justify-content: center; 
+  margin-bottom: 10px; 
+}
+
+.landing-page .cta-button {
+  background-color: #fff;
+  color: #ff5722;
+  border: none;
+  padding: 12px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+  height: 80px; 
+  width: 100%; 
+  border-radius: 0;
+}
+
+.landing-page .cta-button:hover {
+  background-color: #ff5722;
+  color: #fff;
+  border: 1px solid #fff;
+}
 
 .product-list {
   display: grid;
-  grid-template-columns: repeat(6, 1fr); /* Set to 6 equal columns */
-  gap: 5px; 
-  justify-items: center; /* Center products within the grid */
+  /* grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); */
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  justify-items: center;
+  margin-top: 20px;
 }
 
 .product-card-container {
   background-color: white;
-  border-radius: 6px; /* Slightly smaller rounded corners */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Softer, smaller shadow */
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: transform 0.2s ease;
-  max-width: 200px; /* Adjusted card size to fit 6 columns */
-
+  max-width: 200px;
 }
 
 .product-card-container:hover {
-  transform: translateY(-3px); /* Subtle hover effect */
+  transform: translateY(-3px);
+}
+
+/* Loading and Error Messages */
+.loading,
+.error {
+  text-align: center;
+  font-size: 1em;
+  color: #333;
+}
+
+.error {
+  color: red;
 }
 
 .product-feedback {
@@ -82,11 +132,16 @@
   color: #ffd700; 
 }
 
-.loading,
-.error {
-  text-align: center;
-  font-size: 1em; 
+.userName {
+  font-weight: bold;
   color: #333;
+  margin-right: 5px;
+  font-size: 12px;
+}
+
+.userComment {
+  color: #666;
+  font-size: 0.9em; 
 }
 
 .error {
@@ -127,4 +182,3 @@
   height: 3px;
   background: linear-gradient(to right, #3498db, #2c3e50);
 }
-

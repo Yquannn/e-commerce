@@ -16,19 +16,13 @@ exports.fetchUserByEmail = async (email) => {
 
 
 
-
-
-
-// Fetch all accounts
 exports.fetchAll = async () => {
   const [accounts] = await pool.query('SELECT * FROM users');
   return accounts;
 };
 
-// Fetch user by MemberId
 
 
-// Find a user by email
 exports.findByEmail = async (email) => {
   try {
     const [user] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
@@ -39,6 +33,8 @@ exports.findByEmail = async (email) => {
   }
 };
 
+
+ 9
 exports.create = async (userName, email, password, role) => {
   try {
     const [result] = await pool.query(

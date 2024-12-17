@@ -3,15 +3,15 @@
   background-color: #ffffff;
   padding: 10px; /* Reduced padding */
   font-family: 'Arial', sans-serif;
-  max-width: 1300px; /* Increased maximum width to accommodate more columns */
-  margin: 0 auto; /* Center the container horizontally */
+  max-width: 1200px; /* Increased maximum width to accommodate more columns */
+  margin: 0 auto;
 }
 
 .welcome-message {
   color: #333;
   text-align: center;
   font-size: 15px;
-  margin-top: 28px;
+  margin-top: 50px;
 }
 
 .products-heading {

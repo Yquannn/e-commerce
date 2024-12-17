@@ -69,15 +69,28 @@
   color: #333;
   margin-bottom: 4px;
   line-height: 24px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical; 
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2; 
 }
 
 .product-description {
-  font-size: 0.8em;
-  color: #666;
-  margin: 5px 0;
-  flex-grow: 1;
-  line-height: 18px;
+  font-size: 0.8em; 
+  color: #666; 
+  margin: 5px 0; 
+  line-height: 1.5em; 
+
+
+  display: -webkit-box; 
+  -webkit-box-orient: vertical; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 4; 
 }
+
+
 
 .product-price {
   font-size: 1.1em;

@@ -8,6 +8,7 @@ const AddProduct = () => {
     price: "",
     image: null,
   });
+  const email = localStorage.getItem("userEmail"); // Check if the user has an email in localStorage
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,6 +21,13 @@ const AddProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!email) {
+      alert("You are using a guest account. Please log in.");
+      window.location.href = "/"; 
+      return;
+    }
+    
 
     // FormData for image upload
     const formData = new FormData();

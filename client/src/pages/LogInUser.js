@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; // Import Link from React Router for navigation
 import '../styles/LogInUser.css'; // Create a separate CSS file for styling
 
 const LogInUser = () => {
@@ -55,30 +56,33 @@ const LogInUser = () => {
   return (
     <div className="container">
       <div className="login-container">
-      <h2>Log In</h2>
-      {error && <p className="error-message">{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          value={email}
-          onChange={handleEmailChange}
-          placeholder="Enter your email"
-          required
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={handlePasswordChange}
-          placeholder="Enter your password"
-          required
-        />
-        <button type="submit" className="login-button" disabled={loading}>
-          {loading ? 'Logging In...' : 'Log In'}
-        </button>
-      </form>
+        <h2>Log In</h2>
+        {error && <p className="error-message">{error}</p>}
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            value={email}
+            onChange={handleEmailChange}
+            placeholder="Enter your email"
+            required
+          />
+          <input
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+            placeholder="Enter your password"
+            required
+          />
+          <button type="submit" className="login-button" disabled={loading}>
+            {loading ? 'Logging In...' : 'Log In'}
+          </button>
+        </form>
+
+        <div className="signup-link">
+          <p>Doesn't have an account yet? <Link to="/signup">Sign Up</Link></p>
+        </div>
+      </div>
     </div>
-    </div>
-    
   );
 };
 

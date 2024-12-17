@@ -10,15 +10,14 @@ import LogInUser from "./pages/LogInUser.js";
 
 const App = () => {
   const [isMessageModalOpen, setIsMessageModalOpen] = useState(false);
-
   const toggleMessageModal = () => {
     setIsMessageModalOpen((prev) => !prev);
   };
 
   const handleLogOut = () => {
-    localStorage.clear(); // Clear local storage
-    alert("You have been logged out.");
-    window.location.href = "/"; // Redirect to the login page
+    localStorage.clear(); 
+    alert("You have been logged out/quit.");
+    window.location.href = "/"; 
   };
 
   return (
@@ -29,7 +28,7 @@ const App = () => {
         <Route path="shop" element={<Home />} />
         <Route path="cart" element={<CartPage />} />
         <Route path="addProduct" element={<AddProduct />} />
-        <Route path="createAccount" element={<CreateAccount />} />
+        <Route path="signup" element={<CreateAccount />} />
       </Routes>
       {isMessageModalOpen && (
         <MessageModal isOpen={isMessageModalOpen} toggleModal={toggleMessageModal} />

@@ -1,14 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../styles/ProductCard.css';
 
 const ProductCard = ({ product, onAddToCart }) => {
-
   const image = product.image_url ? `http://localhost:3001/uploads/${product.image_url}` : null;
-  const email = localStorage.getItem('userEmail'); // Get email from localStorage
+  const email = localStorage.getItem('userEmail'); 
 
   const handleAddToCartClick = () => {
+    if (email) {
       onAddToCart(product.product_id, email); 
+      window.location.reload(); 
+    } else {
+      alert('You are using a guest account. Please log in.');
+      window.location.href = "/"; // Redirect to the sign-up page
+     
+      
+    }
   };
+
+
 
   return (
     <div className="product-card">
